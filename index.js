@@ -16,8 +16,6 @@ app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms :body')
 );
 
-let persons = [];
-
 app.get('/', (request, response) => {
   response.send('<h1>Phonebook Project</h1>');
 });
@@ -29,16 +27,19 @@ app.get('/api/persons', (request, response) => {
 });
 
 app.get('/info', (request, response) => {
-  const getPersonsCount = persons.length;
   const date = new Date();
 
-  response.send(
-    `<p>phonebook has info for ${
-      getPersonsCount > 1
-        ? `${getPersonsCount} people`
-        : `${getPersonsCount} person`
-    } <br /><br /> ${date}</p>`
-  );
+  const sendData = (peopleCount) => {
+    return `<p>phonebook has info for ${
+      peopleCount > 1 ? `${peopleCount} people` : `${peopleCount} person`
+    } <br /><br /> ${date}</p>`;
+  };
+
+  Person.countDocuments()
+    .then((peopleCount) => {
+      response.send(sendData(peopleCount));
+    })
+    .catch((error) => next(error));
 });
 
 app.get('/api/persons/:id', (request, response, next) => {
