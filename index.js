@@ -71,7 +71,7 @@ app.post('/api/persons', (request, response, next) => {
   // We use validateSync to control custom validator in Mongoose
   const validationError = person.validateSync(); // This runs the validation on the schema
 
-  if (validationError) {
+  if (validationError && validationError.errors['number']) {
     return response.status(400).json({
       error: validationError.errors['number'].message,
     });
