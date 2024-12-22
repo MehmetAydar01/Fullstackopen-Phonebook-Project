@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf dist && cd ../../Exercises-Projects/part2/phonebook && npm run build && cp -r dist ../../../Exercises-Projects-backend/phonebook-backend",
-    "deploy:full": "npm run build:ui && git add . && git commit -m '3.19-3.21 alistirmalari cozuldu ve uibuild edildi' && git push"
+    "deploy:full": "npm run build:ui && git add . && git commit -m 'uibuild' && git push"
   },
   "author": "Mehmet Aydar",
   "license": "ISC",
